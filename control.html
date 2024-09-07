@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-image: url('images/snap.jpg'); /* Path to your background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-size: 1.1rem;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;
+        }
+        .control-panel {
+            width: 280px; /* Adjust the width as needed */
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.1); /* 3D effect */
+            transition: all 0.3s ease;
+            margin: 10px; /* Margin for spacing */
+        }
+        .control-panel:hover {
+            box-shadow: 0 16px 32px rgba(0,0,0,0.3), 0 6px 12px rgba(0,0,0,0.2); /* Enhanced 3D effect on hover */
+        }
+        .control-panel h4 {
+            margin-bottom: 15px;
+            color: #343a40;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        .control-panel button {
+            margin-top: 10px;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
+        .device-status {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #6c757d;
+        }
+        .temperature-display {
+            font-size: 36px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .thermostat-controls button {
+            margin-right: 10px;
+        }
+        .speed-control {
+            margin-top: 10px;
+            background: #f1f3f5;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .speed-control label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .speed-control input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #007bff;
+            outline: none;
+            border-radius: 5px;
+        }
+        .speed-control input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .speed-control input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .speed-control .speed-display {
+            font-size: 16px;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004080;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+        .btn-info:hover {
+            background-color: #117a8b;
+            border-color: #10707f;
+        }
+        /* Flexbox container for control panels */
+        .control-panel-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Space panels evenly */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Control Panel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#devices">Devices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#settings">Settings</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Flexbox Container for Control Panels -->
+        <div class="control-panel-container">
+            <!-- Lights Control Panel -->
+            <div id="lights-control" class="control-panel">
+                <h4><i class="fas fa-lightbulb"></i> Lights Control</h4>
+                <button class="btn btn-primary" onclick="toggleLight('living-room-light')">Toggle Living Room Light</button>
+                <button class="btn btn-primary" onclick="toggleLight('bedroom-light')">Toggle Bedroom Light</button>
+                <div id="living-room-light-status" class="device-status">Living Room Light: Off</div>
+                <div id="bedroom-light-status" class="device-status">Bedroom Light: Off</div>
+            </div>
+
+            <!-- Fan Control Panel -->
+            <div id="fan-control" class="control-panel">
+                <h4><i class="fas fa-fan"></i> Fan Control</h4>
+                <button class="btn btn-primary" onclick="toggleFan('living-room-fan')">Toggle Living Room Fan</button>
+                <button class="btn btn-primary" onclick="toggleFan('bedroom-fan')">Toggle Bedroom Fan</button>
+                <div id="living-room-fan-status" class="device-status">Living Room Fan: Off</div>
+                <div id="bedroom-fan-status" class="device-status">Bedroom Fan: Off</div>
+                <div class="speed-control">
+                    <label for="fan-speed">Fan Speed:</label>
+                    <input type="range" id="fan-speed" min="0" max="100" step="10" oninput="updateFanSpeed(this.value)">
+                    <div id="fan-speed-display" class="speed-display">Speed: 0</div>
+                </div>
+            </div>
+
+            <!-- Thermostat Control Panel -->
+            <div id="thermostat-control" class="control-panel">
+                <h4><i class="fas fa-thermometer-half"></i> Thermostat Control</h4>
+                <div class="temperature-display" id="current-temperature">22°C</div>
+                <div class="thermostat-controls">
+                    <button class="btn btn-info" onclick="increaseTemperature()">Increase</button>
+                    <button class="btn btn-info" onclick="decreaseTemperature()">Decrease</button>
+                </div>
+            </div>
+
+            <!-- AC Control Panel -->
+            <div id="ac-control" class="control-panel">
+                <h4><i class="fas fa-wind"></i> AC Control</h4>
+                <button class="btn btn-primary" onclick="toggleAC('living-room-ac')">Toggle Living Room AC</button>
+                <button class="btn btn-primary" onclick="toggleAC('bedroom-ac')">Toggle Bedroom AC</button>
+                <div id="living-room-ac-status" class="device-status">Living Room AC: Off</div>
+                <div id="bedroom-ac-status" class="device-status">Bedroom AC: Off</div>
+                <div class="speed-control">
+                    <label for="ac-speed">AC Speed:</label>
+                    <input type="range" id="ac-speed" min="0" max="100" step="10" oninput="updateACSpeed(this.value)">
+                    <div id="ac-speed-display" class="speed-display">Speed: 0</div>
+                </div>
+            </div>
+
+            <!-- Security Control Panel -->
+            <div id="security-control" class="control-panel">
+                <h4><i class="fas fa-lock"></i> Security Control</h4>
+                <button class="btn btn-danger" onclick="toggleSecuritySystem()">Toggle Security System</button>
+                <div id="security-status" class="device-status">Security System: Disarmed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function toggleLight(lightId) {
+            const statusElement = document.getElementById(`${lightId}-status`);
+            if (statusElement.textContent.includes('Off')) {
+                statusElement.textContent = `${lightId.replace('-', ' ')}: On`;
+            } else {
+                statusElement.textContent = `${lightId.replace('-', ' ')}: Off`;
+            }
+        }
+
+        function toggleFan(fanId) {
+            const statusElement = document.getElementById(`${fanId}-status`);
+            if (statusElement.textContent.includes('Off')) {
+                statusElement.textContent = `${fanId.replace('-', ' ')}: On`;
+            } else {
+                statusElement.textContent = `${fanId.replace('-', ' ')}: Off`;
+            }
+        }
+
+        function updateFanSpeed(value) {
+            document.getElementById('fan-speed-display').textContent = `Speed: ${value}`;
+        }
+
+        function increaseTemperature() {
+            const tempElement = document.getElementById('current-temperature');
+            let currentTemp = parseInt(tempElement.textContent);
+            currentTemp += 1;
+            tempElement.textContent = `${currentTemp}°C`;
+        }
+
+        function decreaseTemperature() {
+            const tempElement = document.getElementById('current-temperature');
+            let currentTemp = parseInt(tempElement.textContent);
+            currentTemp -= 1;
+            tempElement.textContent = `${currentTemp}°C`;
+        }
+
+        function toggleAC(acId) {
+            const statusElement = document.getElementById(`${acId}-status`);
+            if (statusElement.textContent.includes('Off')) {
+                statusElement.textContent = `${acId.replace('-', ' ')}: On`;
+            } else {
+                statusElement.textContent = `${acId.replace('-', ' ')}: Off`;
+            }
+        }
+
+        function updateACSpeed(value) {
+            document.getElementById('ac-speed-display').textContent = `Speed: ${value}`;
+        }
+
+        function toggleSecuritySystem() {
+            const statusElement = document.getElementById('security-status');
+            if (statusElement.textContent.includes('Disarmed')) {
+                statusElement.textContent = 'Security System: Armed';
+            } else {
+                statusElement.textContent = 'Security System: Disarmed';
+            }
+        }
+    </script>
+</body>
+</html>
